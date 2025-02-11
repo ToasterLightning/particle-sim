@@ -10,15 +10,18 @@ def summonWater(x,y, waterParticles):
             theta = random.uniform(0,2*math.pi)
             posX = r*math.cos(theta) + x
             posY = r*math.sin(theta) + y
-        waterParticles.append([posX,posY, 0])
+        waterParticles.append([posX,posY, 0,0])
     return waterParticles
 def drawWater(waterParticles, screen):
     for p in waterParticles:
         pygame.draw.circle(screen, (0, 120, 255), (p[0], p[1]), 1)
 def physicsUpdate(waterParticles):
     for p in waterParticles:
-        p[2] += .1
-        p[1] += p[2]
+        p[3] += .1
+        if p[1] + p[3] > 599:
+            p[3] = -0.8*p[3]
+        p[1] += p[3]
+        
     return waterParticles
 
 waterParticles = []
